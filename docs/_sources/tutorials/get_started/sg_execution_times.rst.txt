@@ -1,0 +1,18 @@
+
+:orphan:
+
+.. _sphx_glr_tutorials_get_started_sg_execution_times:
+
+Computation times
+=================
+**00:05.963** total execution time for **tutorials_get_started** files:
+
++-------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_tutorials_get_started_relay_quick_start.py` (``relay_quick_start.py``)                 | 00:05.954 | 0.0 MB |
++-------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_tutorials_get_started_tensor_expr_get_started.py` (``tensor_expr_get_started.py``)     | 00:00.009 | 0.0 MB |
++-------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_tutorials_get_started_cross_compilation_and_rpc.py` (``cross_compilation_and_rpc.py``) | 00:00.000 | 0.0 MB |
++-------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_tutorials_get_started_tvmc_command_line_driver.py` (``tvmc_command_line_driver.py``)   | 00:00.000 | 0.0 MB |
++-------------------------------------------------------------------------------------------------------+-----------+--------+

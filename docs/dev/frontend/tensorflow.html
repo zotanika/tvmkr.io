@@ -1,0 +1,634 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="kr" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>텐서플로우 프론트엔드 &mdash; tvm 0.8.dev0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/tvm-logo-square.png"/>
+  
+
+  
+  
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <script type="text/javascript" src="../../_static/js/tlcpack_theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="보안 가이드" href="../security.html" />
+    <link rel="prev" title="벤치마크 성능 로그 포맷" href="../benchmark.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    
+<header class="header">
+    <div class="innercontainer">
+      <div class="headerInner d-flex justify-content-between align-items-center">
+          <div class="headerLogo">
+               <a href="https://tvm.apache.org/"><img src=https://tvm.apache.org/assets/images/logo.svg alt="logo"></a>
+          </div>
+
+          <div id="headMenu" class="headerNav">
+            <button type="button" id="closeHeadMenu" class="navCloseBtn"><img src="../../_static/img/close-icon.svg" alt="Close"></button>
+             <ul class="nav">
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/community>Community</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/download>Download</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/vta>VTA</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/blog>Blog</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/docs>Docs</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvmconf.org>Conference</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://github.com/apache/tvm/>Github</a>
+                </li>
+             </ul>
+               <div class="responsivetlcdropdown">
+                 <button type="button" class="btn-link">
+                   ASF
+                 </button>
+                 <ul>
+                     <li>
+                       <a href=https://apache.org/>Apache Homepage</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/licenses/>License</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/security/>Security</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/thanks.html>Thanks</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/events/current-event>Events</a>
+                     </li>
+                 </ul>
+               </div>
+          </div>
+            <div class="responsiveMenuIcon">
+              <button type="button" id="menuBtn" class="btn-menu"><img src="../../_static/img/menu-icon.svg" alt="Menu Icon"></button>
+            </div>
+
+            <div class="tlcDropdown">
+              <div class="dropdown">
+                <button type="button" class="btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ASF
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <ul>
+                     <li>
+                       <a href=https://apache.org/>Apache Homepage</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/licenses/>License</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/security/>Security</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/thanks.html>Thanks</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/events/current-event>Events</a>
+                     </li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+       </div>
+    </div>
+ </header>
+ 
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side fixed">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/tvm-logo-small.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.8.dev0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">입문</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install/index.html">설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">TVM에 기여하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deploy/index.html">구현과 탑재</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to.html">Developer How-To Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">튜토리얼</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Get Started Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html#compile-deep-learning-models">Compile Deep Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html#tensor-expression-and-schedules">Tensor Expression and Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html#optimize-tensor-operators">Optimize Tensor Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html#autotvm-template-based-auto-tuning">AutoTVM : Template-based Auto Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html#autoscheduler-template-free-auto-scheduling">AutoScheduler : Template-free Auto Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html#developer-tutorials">Developer Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html#topi-tvm-operator-inventory">TOPI: TVM Operator Inventory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html#micro-tvm">Micro TVM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">참고 자료</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../langref/index.html">언어 레퍼런스</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/python/index.html">파이썬 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/links.html">다른 API 참조를 위한 링크</a></li>
+</ul>
+<p class="caption"><span class="caption-text">심층 해설</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">디자인과 아키텍쳐</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#example-compilation-flow">컴파일 과정 예시</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#logical-architecture-components">아키텍쳐 논리 구성 요소</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-support">tvm/support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-runtime">tvm/runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-node">tvm/node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-ir">tvm/ir</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-target">tvm/target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-tir">tvm/tir</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-arith">tvm/arith</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-te">tvm/te</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-topi">tvm/topi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-relay">tvm/relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tvm-autotvm">tvm/autotvm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#frontends">프론트엔드</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">텐서플로우 프론트엔드</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preparing-a-model-for-inference">추론을 위한 모델 준비하기</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#import-the-model">모델 불러들이기</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#best-practices">모범 사례</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#supported-ops">지원 가능 연산</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#security">Security</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../vta/index.html">VTA: 딥러닝 가속기 스택</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">자주 묻는 질문(FAQ)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">인덱스</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      
+      <nav class="wy-nav-top" aria-label="top navigation" data-toggle="wy-nav-top">
+        
+            <div class="togglemenu">
+
+            </div>
+            <div class="nav-content">
+              <!-- tvm -->
+              Table of content
+            </div>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> <span class="br-arrow">></span></li>
+        
+          <li><a href="../index.html">디자인과 아키텍쳐</a> <span class="br-arrow">></span></li>
+        
+      <li>텐서플로우 프론트엔드</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/dev/frontend/tensorflow.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tensorflow-frontend">
+<h1>텐서플로우 프론트엔드<a class="headerlink" href="#tensorflow-frontend" title="Permalink to this headline">¶</a></h1>
+<p>텐서플로우 프론트엔드는 텐서플로우 모델을 TVM으로 가져오는 작업을 돕습니다.</p>
+<p>지원되는 버젼:</p>
+<ul class="simple">
+<li><p>1.12 이상</p></li>
+</ul>
+<p>확인된 모델:</p>
+<ul class="simple">
+<li><p>Inception (V1/V2/V3/V4)</p></li>
+<li><p>Resnet (All)</p></li>
+<li><p>Mobilenet (V1/V2 All)</p></li>
+<li><p>Vgg (16/19)</p></li>
+<li><p>BERT (Base/3-layer)</p></li>
+</ul>
+<div class="section" id="preparing-a-model-for-inference">
+<h2>추론을 위한 모델 준비하기<a class="headerlink" href="#preparing-a-model-for-inference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="remove-unneeded-nodes">
+<h3>불필요한 노드 제거<a class="headerlink" href="#remove-unneeded-nodes" title="Permalink to this headline">¶</a></h3>
+<p>내보내기 프로세스로 추론에 불필요한 많은 노드들이 제거될 것이지만, 유감스럽게도 몇몇 노드는 여전히 남아있을 겁니다. 이렇게 손수 제거해야 하는 노드들은 :</p>
+<ul class="simple">
+<li><p>Dropout, <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/nn/dropout">Dropout</a> 과 <a class="reference external" href="https://www.tensorflow.org/versions/r1.12/api_docs/python/tf/nn/rnn_cell/DropoutWrapper?hl=hr">DropoutWrapper</a> 포함</p></li>
+<li><p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/debugging/Assert">Assert</a></p></li>
+</ul>
+</div>
+<div class="section" id="convert-none-dimensions-to-constants">
+<h3>None 차원을 상수로 치환<a class="headerlink" href="#convert-none-dimensions-to-constants" title="Permalink to this headline">¶</a></h3>
+<p>TVM은 동적 변화 텐서에 대해서는 최저한으로만 지원합니다. <code class="docutils literal notranslate"><span class="pre">None</span></code> 차원은 상수들로 교체되어야 합니다. 예컨대 어떤 모델이 <code class="docutils literal notranslate"><span class="pre">(None,20)</span></code> 모양의 입력을 받을 수 있다면, 그 입력은 <code class="docutils literal notranslate"><span class="pre">(1,20)</span></code> 와 같은 모양으로 치환되어야 합니다. 그에 따라 모델 역시 그래프 전체에서 동작에 문제가 없도록 수정되어야 합니다.</p>
+</div>
+<div class="section" id="export">
+<h3>내보내기<a class="headerlink" href="#export" title="Permalink to this headline">¶</a></h3>
+<p>텐서플로우 프론트엔드는 유효한 입력 포맷으로서 동결(frozen)된 protobuf (.pb) 나 저장된 모델을 기대하며, 현재로서는 체크포인트(.ckpt)는 지원하지 않습니다. 텐서플로우 프론트엔드가 필요로 하는 graphdef는 액티브 세션이나 <a class="reference external" href="https://github.com/apache/tvm/blob/main/python/tvm/relay/frontend/tensorflow_parser.py">TFParser</a> 헬퍼 클래스를 사용해서 추출할 수 있습니다.</p>
+<p>모델은 추론을 위해 쓰일 수 있도록 변형을 거쳐 내보내기가 되어야 합니다. &quot;the model for inference. It is also important to set <code class="docutils literal notranslate"><span class="pre">`add_shapes=True`</span></code> 로 설정하는 것도 중요한데, as this will embed the output shapes of each node into the graph. Here is one function to export a model as a protobuf given a session:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.tools.graph_transforms</span> <span class="kn">import</span> <span class="n">TransformGraph</span>
+
+<span class="k">def</span> <span class="nf">export_pb</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">gfile</span><span class="o">.</span><span class="n">GFile</span><span class="p">(</span><span class="s2">&quot;myexportedmodel.pb&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myinput1&quot;</span><span class="p">,</span> <span class="s2">&quot;myinput2&quot;</span><span class="p">]</span> <span class="c1"># replace with your input names</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myoutput1&quot;</span><span class="p">]</span> <span class="c1"># replace with your output names</span>
+        <span class="n">graph_def</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_graph_def</span><span class="p">(</span><span class="n">add_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">graph_def</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">convert_variables_to_constants</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">graph_def</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="n">graph_def</span> <span class="o">=</span> <span class="n">TransformGraph</span><span class="p">(</span>
+            <span class="n">graph_def</span><span class="p">,</span>
+            <span class="n">inputs</span><span class="p">,</span>
+            <span class="n">outputs</span><span class="p">,</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;remove_nodes(op=Identity, op=CheckNumerics, op=StopGradient)&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sort_by_execution_order&quot;</span><span class="p">,</span> <span class="c1"># sort by execution order after each transform to ensure correct node ordering</span>
+                <span class="s2">&quot;remove_attribute(attribute_name=_XlaSeparateCompiledGradients)&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;remove_attribute(attribute_name=_XlaCompile)&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;remove_attribute(attribute_name=_XlaScope)&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sort_by_execution_order&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;remove_device&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sort_by_execution_order&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fold_batch_norms&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sort_by_execution_order&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fold_old_batch_norms&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sort_by_execution_order&quot;</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">graph_def</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>또다른 방법은 <a href="#id1"><span class="problematic" id="id2">`내보내기와 그래프 동결&lt;https://github.com/tensorflow/models/tree/master/research/slim#exporting-the-inference-graph&gt;`_</span></a> 입니다.</p>
+</div>
+</div>
+<div class="section" id="import-the-model">
+<h2>모델 불러들이기<a class="headerlink" href="#import-the-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="explicit-shape">
+<h3>명시적인 모양:<a class="headerlink" href="#explicit-shape" title="Permalink to this headline">¶</a></h3>
+<p>To ensure shapes can be known throughout the entire graph, pass the <code class="docutils literal notranslate"><span class="pre">`shape`</span></code> argument to <code class="docutils literal notranslate"><span class="pre">`from_tensorflow`</span></code>. This dictionary maps input names to input shapes. Please refer to these <a class="reference external" href="https://github.com/apache/tvm/blob/main/tests/python/frontend/tensorflow/test_forward.py#L36">test cases</a> for examples.</p>
+</div>
+<div class="section" id="data-layout">
+<h3>데이터 레이아웃<a class="headerlink" href="#data-layout" title="Permalink to this headline">¶</a></h3>
+<p>대부분의 텐서플로우 모델은 NHWC 레이아웃으로 배포됩니다. NCHW 레이아웃은 특히 GPU 상에서 더 나은 성능을 보여준다고 알려져 있습니다. 텐서플로우 프론트엔드는 <code class="docutils literal notranslate"><span class="pre">`layout='NCHW'`</span></code> 와 <code class="docutils literal notranslate"><span class="pre">`from_tensorflow`</span></code> 인자를 넘겨 받으면 모델의 데이터 레이아웃을 자동으로 변형할 수 있습니다.</p>
+</div>
+</div>
+<div class="section" id="best-practices">
+<h2>모범 사례<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>동적 모양 대신 정적 모양 텐서를 사용해 주세요 (<code class="docutils literal notranslate"><span class="pre">`None`</span></code> 차원은 제거해 주세요)</p></li>
+<li><p>다이내믹 RNN 대신 정적 RNN을 사용해 주세요. <code class="docutils literal notranslate"><span class="pre">`TensorArray`</span></code> 는 아직 미지원입니다.</p></li>
+</ul>
+</div>
+<div class="section" id="supported-ops">
+<h2>지원 가능 연산<a class="headerlink" href="#supported-ops" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Abs</p></li>
+<li><p>Add</p></li>
+<li><p>AddN</p></li>
+<li><p>All</p></li>
+<li><p>Any</p></li>
+<li><p>ArgMax</p></li>
+<li><p>ArgMin</p></li>
+<li><p>AvgPool</p></li>
+<li><p>BatchMatMul</p></li>
+<li><p>BatchMatMulV2</p></li>
+<li><p>BatchNormWithGlobalNormalization</p></li>
+<li><p>BatchToSpaceND</p></li>
+<li><p>BiasAdd</p></li>
+<li><p>BroadcastTo</p></li>
+<li><p>Cast</p></li>
+<li><p>Ceil</p></li>
+<li><p>CheckNumerics</p></li>
+<li><p>ClipByValue</p></li>
+<li><p>Concat</p></li>
+<li><p>ConcatV2</p></li>
+<li><p>Conv2D</p></li>
+<li><p>Cos</p></li>
+<li><p>Tan</p></li>
+<li><p>CropAndResize</p></li>
+<li><p>DecodeJpeg</p></li>
+<li><p>DepthwiseConv2dNative</p></li>
+<li><p>DepthToSpace</p></li>
+<li><p>Dilation2D</p></li>
+<li><p>Equal</p></li>
+<li><p>Elu</p></li>
+<li><p>Enter</p></li>
+<li><p>Erf</p></li>
+<li><p>Exit</p></li>
+<li><p>Exp</p></li>
+<li><p>ExpandDims</p></li>
+<li><p>Fill</p></li>
+<li><p>Floor</p></li>
+<li><p>FloorDiv</p></li>
+<li><p>FloorMod</p></li>
+<li><p>FusedBatchNorm</p></li>
+<li><p>FusedBatchNormV2</p></li>
+<li><p>Gather</p></li>
+<li><p>GatherNd</p></li>
+<li><p>GatherV2</p></li>
+<li><p>Greater</p></li>
+<li><p>GreaterEqual</p></li>
+<li><p>Identity</p></li>
+<li><p>IsFinite</p></li>
+<li><p>IsInf</p></li>
+<li><p>IsNan</p></li>
+<li><p>LeakyRelu</p></li>
+<li><p>LeftShift</p></li>
+<li><p>Less</p></li>
+<li><p>LessEqual</p></li>
+<li><p>Log</p></li>
+<li><p>Log1p</p></li>
+<li><p>LoopCond</p></li>
+<li><p>LogicalAnd</p></li>
+<li><p>LogicalOr</p></li>
+<li><p>LogicalNot</p></li>
+<li><p>LogSoftmax</p></li>
+<li><p>LRN</p></li>
+<li><p>LSTMBlockCell</p></li>
+<li><p>MatMul</p></li>
+<li><p>Max</p></li>
+<li><p>MaxPool</p></li>
+<li><p>Maximum</p></li>
+<li><p>Mean</p></li>
+<li><p>Merge</p></li>
+<li><p>Min</p></li>
+<li><p>Minimum</p></li>
+<li><p>MirrorPad</p></li>
+<li><p>Mod</p></li>
+<li><p>Mul</p></li>
+<li><p>Neg</p></li>
+<li><p>NextIteration</p></li>
+<li><p>NotEqual</p></li>
+<li><p>OneHot</p></li>
+<li><p>Pack</p></li>
+<li><p>Pad</p></li>
+<li><p>PadV2</p></li>
+<li><p>Pow</p></li>
+<li><p>Prod</p></li>
+<li><p>Range</p></li>
+<li><p>Rank</p></li>
+<li><p>RealDiv</p></li>
+<li><p>Relu</p></li>
+<li><p>Relu6</p></li>
+<li><p>Reshape</p></li>
+<li><p>ResizeBilinear</p></li>
+<li><p>ResizeBicubic</p></li>
+<li><p>ResizeNearestNeighbor</p></li>
+<li><p>ReverseV2</p></li>
+<li><p>RightShift</p></li>
+<li><p>Round</p></li>
+<li><p>Rsqrt</p></li>
+<li><p>Select</p></li>
+<li><p>Selu</p></li>
+<li><p>Shape</p></li>
+<li><p>Sigmoid</p></li>
+<li><p>Sign</p></li>
+<li><p>Sin</p></li>
+<li><p>Size</p></li>
+<li><p>Slice</p></li>
+<li><p>Softmax</p></li>
+<li><p>Softplus</p></li>
+<li><p>SpaceToBatchND</p></li>
+<li><p>SpaceToDepth,</p></li>
+<li><p>Split</p></li>
+<li><p>SplitV</p></li>
+<li><p>Sqrt</p></li>
+<li><p>Square</p></li>
+<li><p>SquareDifference</p></li>
+<li><p>Squeeze</p></li>
+<li><p>StridedSlice</p></li>
+<li><p>Sub</p></li>
+<li><p>Sum</p></li>
+<li><p>Switch</p></li>
+<li><p>Tanh</p></li>
+<li><p>TensorArrayV3</p></li>
+<li><p>TensorArrayScatterV3</p></li>
+<li><p>TensorArrayGatherV3</p></li>
+<li><p>TensorArraySizeV3</p></li>
+<li><p>TensorArrayWriteV3</p></li>
+<li><p>TensorArrayReadV3</p></li>
+<li><p>TensorArraySplitV3</p></li>
+<li><p>TensorArrayConcatV3</p></li>
+<li><p>Tile</p></li>
+<li><p>TopKV2</p></li>
+<li><p>Transpose</p></li>
+<li><p>TruncateMod</p></li>
+<li><p>Unpack</p></li>
+<li><p>UnravelIndex</p></li>
+<li><p>Where</p></li>
+<li><p>ZerosLike</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          
+
+<footer>
+
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../security.html" class="btn btn-neutral float-right" title="보안 가이드" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../benchmark.html" class="btn btn-neutral float-left" title="벤치마크 성능 로그 포맷" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+
+<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<section class="footerSec">
+    <div class="footerHeader">
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
+
+    </div>
+
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
+
+</section>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </body>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-75982049-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

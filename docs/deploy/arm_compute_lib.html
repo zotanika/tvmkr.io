@@ -1,0 +1,645 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="kr" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Relay ARM ® 컴퓨트 라이브러리 적용 &mdash; tvm 0.8.dev0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/tvm-logo-square.png"/>
+  
+
+  
+  
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <script type="text/javascript" src="../_static/js/tlcpack_theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Relay TensorRT Integration" href="tensorrt.html" />
+    <link rel="prev" title="HLS 백엔드 예제" href="hls.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    
+<header class="header">
+    <div class="innercontainer">
+      <div class="headerInner d-flex justify-content-between align-items-center">
+          <div class="headerLogo">
+               <a href="https://tvm.apache.org/"><img src=https://tvm.apache.org/assets/images/logo.svg alt="logo"></a>
+          </div>
+
+          <div id="headMenu" class="headerNav">
+            <button type="button" id="closeHeadMenu" class="navCloseBtn"><img src="../_static/img/close-icon.svg" alt="Close"></button>
+             <ul class="nav">
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/community>Community</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/download>Download</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/vta>VTA</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/blog>Blog</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/docs>Docs</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvmconf.org>Conference</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://github.com/apache/tvm/>Github</a>
+                </li>
+             </ul>
+               <div class="responsivetlcdropdown">
+                 <button type="button" class="btn-link">
+                   ASF
+                 </button>
+                 <ul>
+                     <li>
+                       <a href=https://apache.org/>Apache Homepage</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/licenses/>License</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/security/>Security</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/thanks.html>Thanks</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/events/current-event>Events</a>
+                     </li>
+                 </ul>
+               </div>
+          </div>
+            <div class="responsiveMenuIcon">
+              <button type="button" id="menuBtn" class="btn-menu"><img src="../_static/img/menu-icon.svg" alt="Menu Icon"></button>
+            </div>
+
+            <div class="tlcDropdown">
+              <div class="dropdown">
+                <button type="button" class="btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ASF
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <ul>
+                     <li>
+                       <a href=https://apache.org/>Apache Homepage</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/licenses/>License</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/security/>Security</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/thanks.html>Thanks</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/events/current-event>Events</a>
+                     </li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+       </div>
+    </div>
+ </header>
+ 
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side fixed">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/tvm-logo-small.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.8.dev0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">입문</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install/index.html">설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">TVM에 기여하기</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">구현과 탑재</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpp_deploy.html">Deploy TVM Module using C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android.html">안드로이드에 탑재하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate.html">프로젝트에 TVM 탑재하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hls.html">HLS 백엔드 예제</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Relay ARM <sup>®</sup> 컴퓨트 라이브러리 적용</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">소개</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-arm-compute-library">ARM 컴퓨트 라이브러리 설치</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-with-acl-support">Building with ACL support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">사용법</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#more-examples">더 많은 예제</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operator-support">Operator support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-new-operator">Adding a new operator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html">Relay TensorRT Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vitis_ai.html">Vitis-AI Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/how_to.html">Developer How-To Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">튜토리얼</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Get Started Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#compile-deep-learning-models">Compile Deep Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#tensor-expression-and-schedules">Tensor Expression and Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#optimize-tensor-operators">Optimize Tensor Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#autotvm-template-based-auto-tuning">AutoTVM : Template-based Auto Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#autoscheduler-template-free-auto-scheduling">AutoScheduler : Template-free Auto Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#developer-tutorials">Developer Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#topi-tvm-operator-inventory">TOPI: TVM Operator Inventory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#micro-tvm">Micro TVM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">참고 자료</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../langref/index.html">언어 레퍼런스</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/python/index.html">파이썬 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/links.html">다른 API 참조를 위한 링크</a></li>
+</ul>
+<p class="caption"><span class="caption-text">심층 해설</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">디자인과 아키텍쳐</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../vta/index.html">VTA: 딥러닝 가속기 스택</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">자주 묻는 질문(FAQ)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">인덱스</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      
+      <nav class="wy-nav-top" aria-label="top navigation" data-toggle="wy-nav-top">
+        
+            <div class="togglemenu">
+
+            </div>
+            <div class="nav-content">
+              <!-- tvm -->
+              Table of content
+            </div>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> <span class="br-arrow">></span></li>
+        
+          <li><a href="index.html">구현과 탑재</a> <span class="br-arrow">></span></li>
+        
+      <li>Relay ARM <sup>®</sup> 컴퓨트 라이브러리 적용</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/deploy/arm_compute_lib.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="relay-arm-compute-library-integration">
+<h1>Relay ARM <sup>®</sup> 컴퓨트 라이브러리 적용<a class="headerlink" href="#relay-arm-compute-library-integration" title="Permalink to this headline">¶</a></h1>
+<p><strong>저자</strong>: <cite>Luke Hutton &lt;https://github.com/lhutton1&gt;</cite></p>
+<div class="section" id="introduction">
+<h2>소개<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>ARM 컴퓨트 라이브러리(ACL)는 ARM CPU와 GPU에 맞는 가속 커널을 제공하는 오픈 소스 프로젝트입니다. 현재 연산자들의 작업부하를 ACL로 넘겨 라이브러리 내에 손수 작업된 어셈블러 루틴을 활용하도록 구현되어 있는 상태입니다. Relay 그래프로부터 선택된 연산자들을 ACL로 오프로딩함으로써, 해당 장치들에서 성능 향상의 혜택을 얻을 수 있습니다.</p>
+</div>
+<div class="section" id="installing-arm-compute-library">
+<h2>ARM 컴퓨트 라이브러리 설치<a class="headerlink" href="#installing-arm-compute-library" title="Permalink to this headline">¶</a></h2>
+<p>ARM 컴퓨트 라이브러리를 설치하기 전에, 어떤 아키텍쳐를 위해 빌드할 것인지 알아두는 것이 중요합니다. 이걸 확인하는 한가지 방법은 <cite>lscpu</cite> 를 사용해서 CPU의 &quot;Model name&quot; 을 찾아보는 겁니다. of the CPU. You can then use this to determine the architecture by looking online.</p>
+<p>두 가지 방법으로 ACL을 빌드하고 설치하는 걸 추천합니다.</p>
+<ul>
+<li><p>Use the script located at <cite>docker/install/ubuntu_install_arm_compute_lib.sh</cite>. You can use this
+script for building ACL from source natively or for cross-compiling the library on an x86 machine.
+You may need to change the architecture of the device you wish to compile for by altering the
+<cite>target_arch</cite> variable. Binaries will be built from source and installed to the location denoted by
+<cite>install_path</cite>.</p></li>
+<li><p>혹은, <a class="reference external" href="https://github.com/ARM-software/ComputeLibrary/releases">https://github.com/ARM-software/ComputeLibrary/releases</a> 에서 미리 빌드된 바이너리들을 다운로드받아 사용할 수 있습니다. 이 패키지를 사용할 때, 당신이 필요로 하는 아키텍쳐에 맞게 바이너리를 선택하고, cmake에서 인식되는지 확인할 필요가 있습니다. 아래와 같이 하세요:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;acl-prebuilt-package&gt;/lib
+mv ./linux-&lt;architecture-to-build-for&gt;-neon/* .
+</pre></div>
+</div>
+</li>
+</ul>
+<p>In both cases you will need to set USE_ARM_COMPUTE_LIB_GRAPH_RUNTIME to the path where the ACL package
+is located. Cmake will look in /path-to-acl/ along with /path-to-acl/lib and /path-to-acl/build for the
+required binaries. See the section below for more information on how to use these configuration options.</p>
+</div>
+<div class="section" id="building-with-acl-support">
+<h2>Building with ACL support<a class="headerlink" href="#building-with-acl-support" title="Permalink to this headline">¶</a></h2>
+<p>The current implementation has two separate build options in cmake. The reason for this split is
+because ACL cannot be used on an x86 machine. However, we still want to be able compile an ACL
+runtime module on an x86 machine.</p>
+<ul class="simple">
+<li><p>USE_ARM_COMPUTE_LIB=ON/OFF - Enabling this flag will add support for compiling an ACL runtime module.</p></li>
+<li><p>USE_ARM_COMPUTE_LIB_GRAPH_RUNTIME=ON/OFF/path-to-acl - Enabling this flag will allow the graph runtime to
+compute the ACL offloaded functions.</p></li>
+</ul>
+<p>These flags can be used in different scenarios depending on your setup. For example, if you want
+to compile an ACL module on an x86 machine and then run the module on a remote Arm device via RPC, you will
+need to use USE_ARM_COMPUTE_LIB=ON on the x86 machine and USE_ARM_COMPUTE_LIB_GRAPH_RUNTIME=ON on the remote
+AArch64 device.</p>
+<p>By default both options are set to OFF. Using USE_ARM_COMPUTE_LIB_GRAPH_RUNTIME=ON will mean that ACL
+binaries are searched for by cmake in the default locations
+(see <a class="reference external" href="https://cmake.org/cmake/help/v3.4/command/find_library.html">https://cmake.org/cmake/help/v3.4/command/find_library.html</a>). In addition to this,
+/path-to-tvm-project/acl/ will also be searched. It is likely that you will need to set your own path to
+locate ACL. This can be done by specifying a path in the place of ON.</p>
+<p>These flags should be set in your config.cmake file. For example:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">USE_ARM_COMPUTE_LIB</span> <span class="s">ON</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">USE_ARM_COMPUTE_LIB_GRAPH_RUNTIME</span> <span class="s">/path/to/acl</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>사용법<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section may not stay up-to-date with changes to the API.</p>
+</div>
+<p>Relay 그래프를 생성하세요. 전체 그래프일 수도 있고 단 하나의 연산자일 수도 있습니다. 요컨대 아무 그래프나 입력될 수 있다는 뜻입니다. ACL 구현은 지원되는 연산자만 골라내어 옮겨받을 수 있도록 하고, 반면 나머지는 그냥 TVM에서 계산될 것입니다(이 예제에서 우리는 max_pool2d 연산 하나만 사용할 것입니다).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relay</span>
+
+<span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
+<span class="n">data_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<span class="n">strides</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">padding</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">pool_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="s2">&quot;NHWC&quot;</span>
+<span class="n">output_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">data_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">data_type</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pool_size</span><span class="o">=</span><span class="n">pool_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">strides</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">)</span>
+<span class="n">module</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">IRModule</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ACL을 위해 그래프를 가공하고(annotate) 분할하기</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvm.relay.op.contrib.arm_compute_lib</span> <span class="kn">import</span> <span class="n">partition_for_arm_compute_lib</span>
+<span class="n">module</span> <span class="o">=</span> <span class="n">partition_for_arm_compute_lib</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Relay 그래프 빌드</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;llvm -mtriple=aarch64-linux-gnu -mattr=+neon&quot;</span>
+<span class="k">with</span> <span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">disabled_pass</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AlterOpLayout&quot;</span><span class="p">]):</span>
+    <span class="n">lib</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>모듈 내보내기</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lib_path</span> <span class="o">=</span> <span class="s1">&#39;~/lib_acl.so&#39;</span>
+<span class="n">cross_compile</span> <span class="o">=</span> <span class="s1">&#39;aarch64-linux-gnu-c++&#39;</span>
+<span class="n">lib</span><span class="o">.</span><span class="n">export_library</span><span class="p">(</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">cc</span><span class="o">=</span><span class="n">cross_compile</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>추론을 실행하세요. 이는 ARM 장치에서 수행되어야 합니다. x86 장치에서 컴파일하고 AArch64 장치에서 실행하고자 한다면, RPC 메커니즘 활용을 고려해 보세요. 이를 위한 튜토리얼은 <a class="reference external" href="https://tvm.apache.org/docs/tutorials/get_started/cross_compilation_and_rpc.html">https://tvm.apache.org/docs/tutorials/get_started/cross_compilation_and_rpc.html</a> 입니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ctx</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">loaded_lib</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">load_module</span><span class="p">(</span><span class="s1">&#39;lib_acl.so&#39;</span><span class="p">)</span>
+<span class="n">gen_module</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">graph_runtime</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">(</span><span class="n">loaded_lib</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">](</span><span class="n">ctx</span><span class="p">))</span>
+<span class="n">d_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data_shape</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">data_type</span><span class="p">)</span>
+<span class="n">map_inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">d_data</span><span class="p">}</span>
+<span class="n">gen_module</span><span class="o">.</span><span class="n">set_input</span><span class="p">(</span><span class="o">**</span><span class="n">map_inputs</span><span class="p">)</span>
+<span class="n">gen_module</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="more-examples">
+<h2>더 많은 예제<a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
+<p>위의 예제는 ACL이 하나의 Maxpool2D를 어떻게 오프로딩하는지 보여주는 기초적인 예제였습니다. 만일 각각의 구현된 연산자나 신경망 전체에 대한 더 많은 예제를 보고 싶다면`tests/python/contrib/test_arm_compute_lib` 의 테스트 스크립트를 참고하세요. 여기서 당신은 <cite>test_config.json</cite> 을 변경해 <cite>infrastructure.py</cite> 에서 어떻게 리모트 장치를 생성할지, 달리 말해 어떻게 런타임 테스트를 수행할지 설정할 수 있습니다.</p>
+<p><cite>test_config.json</cite> 설정 예시:</p>
+<ul class="simple">
+<li><p>connection_type - RPC 연결 타입. 옵션: local, tracker, remote.</p></li>
+<li><p>host - 연결할 호스트 장치</p></li>
+<li><p>port - 연결에 사용할 포트</p></li>
+<li><p>target - 컴파일에 사용할 타겟</p></li>
+<li><p>device_key - 트래커를 통해 연결할 때 필요한 장치 키</p></li>
+<li><p>cross_compile - 非ARM 플랫폼 e.g. aarch64-linux-gnu-g++ 일 경우의 크로스 컴파일러 경로.</p></li>
+</ul>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;connection_type&quot;</span><span class="p">:</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="mi">9090</span><span class="p">,</span>
+  <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;llvm -mtriple=aarch64-linux-gnu -mattr=+neon&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;device_key&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;cross_compile&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="operator-support">
+<h2>Operator support<a class="headerlink" href="#operator-support" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Relay Node</p></th>
+<th class="head"><p>Remarks</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nn.conv2d</p></td>
+<td><dl class="simple">
+<dt>fp32:</dt><dd><p>Simple: nn.conv2d
+Composite: nn.pad?, nn.conv2d, nn.bias_add?, nn.relu?</p>
+</dd>
+</dl>
+<p>(only groups = 1 supported)</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>qnn.conv2d</p></td>
+<td><dl class="simple">
+<dt>uint8:</dt><dd><p>Composite: nn.pad?, nn.conv2d, nn.bias_add?, nn.relu?, qnn.requantize</p>
+</dd>
+</dl>
+<p>(only groups = 1 supported)</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>nn.dense</p></td>
+<td><dl class="simple">
+<dt>fp32:</dt><dd><p>Simple: nn.dense
+Composite: nn.dense, nn.bias_add?</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>qnn.dense</p></td>
+<td><dl class="simple">
+<dt>uint8:</dt><dd><p>Composite: qnn.dense, nn.bias_add?, qnn.requantize</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>nn.max_pool2d</p></td>
+<td><p>fp32, uint8</p></td>
+</tr>
+<tr class="row-odd"><td><p>nn.global_max_pool2d</p></td>
+<td><p>fp32, uint8</p></td>
+</tr>
+<tr class="row-even"><td><p>nn.avg_pool2d</p></td>
+<td><dl class="simple">
+<dt>fp32:</dt><dd><p>Simple: nn.avg_pool2d</p>
+</dd>
+<dt>uint8:</dt><dd><p>Composite: cast(int32), nn.avg_pool2d, cast(uint8)</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>nn.global_avg_pool2d</p></td>
+<td><dl class="simple">
+<dt>fp32:</dt><dd><p>Simple: nn.global_avg_pool2d</p>
+</dd>
+<dt>uint8:</dt><dd><p>Composite: cast(int32), nn.avg_pool2d, cast(uint8)</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>power(of 2) +
+nn.avg_pool2d +
+sqrt</p></td>
+<td><p>A special case for L2 pooling.</p>
+<dl class="simple">
+<dt>fp32:</dt><dd><p>Composite: power(of 2), nn.avg_pool2d, sqrt</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>reshape</p></td>
+<td><p>fp32, uint8</p></td>
+</tr>
+<tr class="row-even"><td><p>maximum</p></td>
+<td><p>fp32</p></td>
+</tr>
+<tr class="row-odd"><td><p>add</p></td>
+<td><p>fp32</p></td>
+</tr>
+<tr class="row-even"><td><p>qnn.add</p></td>
+<td><p>uint8</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A composite operator is a series of operators that map to a single Arm Compute Library operator. You can view this
+as being a single fused operator from the view point of Arm Compute Library. '?' denotes an optional operator in
+the series of operators that make up a composite operator.</p>
+</div>
+</div>
+<div class="section" id="adding-a-new-operator">
+<h2>Adding a new operator<a class="headerlink" href="#adding-a-new-operator" title="Permalink to this headline">¶</a></h2>
+<p>Adding a new operator requires changes to a series of places. This section will give a hint on
+what needs to be changed and where, it will not however dive into the complexities for an
+individual operator. This is left to the developer.</p>
+<p>There are a series of files we need to make changes to:</p>
+<ul class="simple">
+<li><p><cite>python/relay/op/contrib/arm_compute_lib.py</cite> In this file we define the operators we wish to offload using the
+<cite>op.register</cite> decorator. This will mean the annotation pass recognizes this operator as ACL offloadable.</p></li>
+<li><p><cite>src/relay/backend/contrib/arm_compute_lib/codegen.cc</cite> Implement <cite>Create[OpName]JSONNode</cite> method. This is where we
+declare how the operator should be represented by JSON. This will be used to create the ACL module.</p></li>
+<li><p><cite>src/runtime/contrib/arm_compute_lib/acl_runtime.cc</cite> Implement <cite>Create[OpName]Layer</cite> method. This is where we
+define how the JSON representation can be used to create an ACL function. We simply define how to
+translate from the JSON representation to ACL API.</p></li>
+<li><p><cite>tests/python/contrib/test_arm_compute_lib</cite> Add unit tests for the given operator.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          
+
+<footer>
+
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tensorrt.html" class="btn btn-neutral float-right" title="Relay TensorRT Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hls.html" class="btn btn-neutral float-left" title="HLS 백엔드 예제" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+
+<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<section class="footerSec">
+    <div class="footerHeader">
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
+
+    </div>
+
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
+
+</section>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </body>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-75982049-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

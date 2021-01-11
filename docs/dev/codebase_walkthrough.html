@@ -1,0 +1,549 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="kr" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>예제로 TVM 코드베이스 익히기 &mdash; tvm 0.8.dev0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/tvm-logo-square.png"/>
+  
+
+  
+  
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <script type="text/javascript" src="../_static/js/tlcpack_theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Get Started Tutorials" href="../tutorials/index.html" />
+    <link rel="prev" title="당신의 codegen을 TVM에 도입하기" href="relay_bring_your_own_codegen.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    
+<header class="header">
+    <div class="innercontainer">
+      <div class="headerInner d-flex justify-content-between align-items-center">
+          <div class="headerLogo">
+               <a href="https://tvm.apache.org/"><img src=https://tvm.apache.org/assets/images/logo.svg alt="logo"></a>
+          </div>
+
+          <div id="headMenu" class="headerNav">
+            <button type="button" id="closeHeadMenu" class="navCloseBtn"><img src="../_static/img/close-icon.svg" alt="Close"></button>
+             <ul class="nav">
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/community>Community</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/download>Download</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/vta>VTA</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/blog>Blog</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/docs>Docs</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvmconf.org>Conference</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://github.com/apache/tvm/>Github</a>
+                </li>
+             </ul>
+               <div class="responsivetlcdropdown">
+                 <button type="button" class="btn-link">
+                   ASF
+                 </button>
+                 <ul>
+                     <li>
+                       <a href=https://apache.org/>Apache Homepage</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/licenses/>License</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/security/>Security</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/thanks.html>Thanks</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/events/current-event>Events</a>
+                     </li>
+                 </ul>
+               </div>
+          </div>
+            <div class="responsiveMenuIcon">
+              <button type="button" id="menuBtn" class="btn-menu"><img src="../_static/img/menu-icon.svg" alt="Menu Icon"></button>
+            </div>
+
+            <div class="tlcDropdown">
+              <div class="dropdown">
+                <button type="button" class="btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ASF
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <ul>
+                     <li>
+                       <a href=https://apache.org/>Apache Homepage</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/licenses/>License</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/security/>Security</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/thanks.html>Thanks</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/events/current-event>Events</a>
+                     </li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+       </div>
+    </div>
+ </header>
+ 
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side fixed">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/tvm-logo-small.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.8.dev0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">입문</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install/index.html">설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">TVM에 기여하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy/index.html">구현과 탑재</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="how_to.html">Developer How-To Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="relay_add_op.html">Relay에 연산자 추가하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relay_add_pass.html">Relay에 컴파일러 패스 추가하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relay_bring_your_own_codegen.html">당신의 codegen을 TVM에 도입하기</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">예제로 TVM 코드베이스 익히기</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#codebase-structure-overview">코드베이스 구조 개요</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vector-add-example">벡터합 예제</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">튜토리얼</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Get Started Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#compile-deep-learning-models">Compile Deep Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#tensor-expression-and-schedules">Tensor Expression and Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#optimize-tensor-operators">Optimize Tensor Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#autotvm-template-based-auto-tuning">AutoTVM : Template-based Auto Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#autoscheduler-template-free-auto-scheduling">AutoScheduler : Template-free Auto Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#developer-tutorials">Developer Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#topi-tvm-operator-inventory">TOPI: TVM Operator Inventory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#micro-tvm">Micro TVM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">참고 자료</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../langref/index.html">언어 레퍼런스</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/python/index.html">파이썬 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/links.html">다른 API 참조를 위한 링크</a></li>
+</ul>
+<p class="caption"><span class="caption-text">심층 해설</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">디자인과 아키텍쳐</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../vta/index.html">VTA: 딥러닝 가속기 스택</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">자주 묻는 질문(FAQ)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">인덱스</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      
+      <nav class="wy-nav-top" aria-label="top navigation" data-toggle="wy-nav-top">
+        
+            <div class="togglemenu">
+
+            </div>
+            <div class="nav-content">
+              <!-- tvm -->
+              Table of content
+            </div>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> <span class="br-arrow">></span></li>
+        
+          <li><a href="how_to.html">Developer How-To Guide</a> <span class="br-arrow">></span></li>
+        
+      <li>예제로 TVM 코드베이스 익히기</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/dev/codebase_walkthrough.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tvm-codebase-walkthrough-by-example">
+<h1>예제로 TVM 코드베이스 익히기<a class="headerlink" href="#tvm-codebase-walkthrough-by-example" title="Permalink to this headline">¶</a></h1>
+<p>새로운 코드베이스에 익숙해지기란 언제나 도전입니다. 특히나 TVM 처럼 서로 다른 요소들이 직관적이지 않은 방식으로 상호 작용하는 코드베이스들은 더욱 그렇죠. 이 가이드에서 우리는 간단한 예제를 통해 컴파일레이션 파이프라인을 구성하는 핵심 요소들을 묘사해 보려고 합니다. 중요한 단계 단계마다 코드베이스의 어느 위치에 구현되어 있는지도 소개하겠습니다. 목표는 새로운 개발자들과 TVM에 흥미를 가진 사용자들이 코드베이스에 더 빨리 빠져들게 돕는 것입니다.</p>
+<div class="section" id="codebase-structure-overview">
+<h2>코드베이스 구조 개요<a class="headerlink" href="#codebase-structure-overview" title="Permalink to this headline">¶</a></h2>
+<p>TVM 저장소 맨 위에서부터, 아래와 같은 서브디렉터리들이 코드베이스 덩어리를 함께 구성합니다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">src</span></code> - 연산자 컴파일레이션과 탑재 런타임을 위한 C++ 코드.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/relay</span></code> - 딥러닝을 위한 새로운 함수형 IR인 Relay의 구현체.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span></code> - <code class="docutils literal notranslate"><span class="pre">src</span></code> 에 구현된 C++ 함수와 객체를 포장한 파이썬 프론트엔드.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/topi</span></code> - 표준 신경망 연산자를 위한 컴퓨트 정의와 백엔드 스케줄.</p></li>
+</ul>
+<p>표준 딥러닝 용어를 빌면, <code class="docutils literal notranslate"><span class="pre">src/relay</span></code> 는 계산 그래프를 관리하는 컴포넌트이며, 그래프 내의 노드들의 컴파일과 실행에는 <code class="docutils literal notranslate"><span class="pre">src</span></code> 의 나머지 부분에 구현되어 있는 인프라스트럭쳐가 활용됩니다. <code class="docutils literal notranslate"><span class="pre">python</span></code> 은 사용자들이 컴파일할 때 사용할 수 있는 C++ API와 드라이버 코드들의 파이썬 바인딩을 제공합니다. 각 노드에 대응하는 연산자들은 <code class="docutils literal notranslate"><span class="pre">src/relay/op</span></code> 안에 등록되어 있으며, C++이나 파이썬 코드로 구현된 연산자들은 <code class="docutils literal notranslate"><span class="pre">topi</span></code> 에 위치합니다.</p>
+<p>사용자가 <code class="docutils literal notranslate"><span class="pre">relay.build(...)</span></code> 로 그래프 컴파일을 개시하면, 그래프 안의 각 노드에 대해 다음과 같은 일련의 동작들이 이어집니다:</p>
+<ul class="simple">
+<li><p>연산자 레지스트리에 질의하여 연산자 구현을 검색</p></li>
+<li><p>연사자에 대한 컴퓨트 표현과 스케줄을 생성</p></li>
+<li><p>연산자를 객체코드로 컴파일</p></li>
+</ul>
+<p>TVM 코드베이스의 재밌는 점 하나는 C++과 파이썬의 상호운용성이 일방적이지 않다는 것입니다. 일반적으로 무거운 작업을 수행하는 코드는 C++로 구현되고 파이썬 바인딩은 사용자 인터페이스를 위해 제공되지요. TVM에서도 마찬가지입니다만, TVM 코드베이스에서는 C++ 코드 역시 파이썬 모듈에 정의되어 있는 함수를 호출할 수 있습니다. 예를 들어, 합성곱(convolution) 연산은 파이썬 모듈에 정의되어 있는데, Relay에서는 C++ 코드가 이 구현을 불러올 수 있습니다.</p>
+</div>
+<div class="section" id="vector-add-example">
+<h2>벡터합 예제<a class="headerlink" href="#vector-add-example" title="Permalink to this headline">¶</a></h2>
+<p>저수준 TVM API를 직접 사용하는 간단한 예로 벡터합을 들어 보겠습니다. <a class="reference internal" href="../tutorials/get_started/tensor_expr_get_started.html#tutorial-tensor-expr-get-started"><span class="std std-ref">Get Started with Tensor Expression</span></a> 에서 자세하게 다뤄집니다</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span><span class="p">((</span><span class="n">n</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span><span class="p">((</span><span class="n">n</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>여기서 <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code> 의 타입은 <code class="docutils literal notranslate"><span class="pre">python/tvm/te/tensor.py</span></code> 에 정의된 <code class="docutils literal notranslate"><span class="pre">tvm.tensor.Tensor</span></code> 입니다. 파이썬 <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> 는 <code class="docutils literal notranslate"><span class="pre">include/tvm/te/tensor.h</span></code> 와 <code class="docutils literal notranslate"><span class="pre">src/te/tensor.cc</span></code> 에 구현되어 있는 C++ <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> 로 뒷받침됩니다. TVM 내의 모든 파이썬 타입들은 같은 명칭으로 내장되어 있는 C++ 타입에 대응하는 핸들로 봐도 됩니다. 일단 파이썬 <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> 의 정의를 살펴보면, <code class="docutils literal notranslate"><span class="pre">Object</span></code> 의 서브클래스임을 알 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@register_object</span>
+<span class="k">class</span> <span class="nc">Tensor</span><span class="p">(</span><span class="n">Object</span><span class="p">,</span> <span class="n">_expr</span><span class="o">.</span><span class="n">ExprOp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tensor object, to construct, see function.Tensor&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">indices</span><span class="p">):</span>
+       <span class="o">...</span>
+</pre></div>
+</div>
+<p>객체 프로토콜은 C++ 타입들을 파이썬과 같은 프론트엔드 언어에 노출시키기 위한 기반이 됩니다. TVM이 파이썬 래핑을 구현한 방법은 직관적이지 않습니다. <a class="reference internal" href="runtime.html#tvm-runtime-system"><span class="std std-ref">TVM 런타임 시스템</span></a> 에 개략적으로, <code class="docutils literal notranslate"><span class="pre">python/tvm/_ffi/</span></code> 에서 자세히 다루고 있으니 흥미가 있다면 참조하세요.</p>
+<p>C++ 함수들을 <a class="reference internal" href="runtime.html#tvm-runtime-system-packed-func"><span class="std std-ref">PackedFunc</span></a> 의 형태로 프론트엔드 언어에 노출시키기 위해 <code class="docutils literal notranslate"><span class="pre">TVM_REGISTER_*</span></code> 매크로가 쓰입니다. <code class="docutils literal notranslate"><span class="pre">PackedFunc</span></code> 은 TVM이 C++와 파이썬의 상호운용성을 실현하는 데에 필요한 또다른 메커니즘입니다. 특히 이것은 C++ 코드베이스에서 파이썬 함수를 쉽게 부를 수 있게 만듭니다. 파이썬과 C++ FFI 호출 사이를 오갈 수 있게 하는 <cite>FFI 네이게이터 &lt;https://github.com/tqchen/ffi-navigator&gt;</cite> 도 확인해 보세요.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Tensor</span></code> 객체는 자신과 결부된 <code class="docutils literal notranslate"><span class="pre">Operation</span></code> 객체를 가지며, <code class="docutils literal notranslate"><span class="pre">python/tvm/te/tensor.py</span></code>, <code class="docutils literal notranslate"><span class="pre">include/tvm/te/operation.h</span></code>, <code class="docutils literal notranslate"><span class="pre">src/tvm/te/operation</span></code> 서브디렉터리에 정의됩니다. <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> 는 자신의 <code class="docutils literal notranslate"><span class="pre">Operation</span></code> 객체의 출력입니다. 반면 각 <code class="docutils literal notranslate"><span class="pre">Operation</span></code> 객체는 자신에게 입력되는 <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> 리스트를 반환하는 <code class="docutils literal notranslate"><span class="pre">input_tensors()</span></code> 메서드를 가집니다. 이로써 <code class="docutils literal notranslate"><span class="pre">Operation</span></code> 사이의 의존성을 추적할 수 있습니다.</p>
+<p>We pass the operation corresponding to the output tensor <code class="docutils literal notranslate"><span class="pre">C</span></code> to <code class="docutils literal notranslate"><span class="pre">tvm.te.create_schedule()</span></code> function in <code class="docutils literal notranslate"><span class="pre">python/tvm/te/schedule.py</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function is mapped to the C++ function in <code class="docutils literal notranslate"><span class="pre">include/tvm/schedule.h</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inline</span> <span class="n">Schedule</span> <span class="n">create_schedule</span><span class="p">(</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span> <span class="n">ops</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">Schedule</span><span class="p">(</span><span class="n">ops</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Schedule</span></code> consists of collections of <code class="docutils literal notranslate"><span class="pre">Stage</span></code> and output <code class="docutils literal notranslate"><span class="pre">Operation</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Stage</span></code> corresponds to one <code class="docutils literal notranslate"><span class="pre">Operation</span></code>. In the vector add example above, there are two placeholder ops and one compute op, so the schedule <code class="docutils literal notranslate"><span class="pre">s</span></code> contains three stages. Each <code class="docutils literal notranslate"><span class="pre">Stage</span></code> holds information about a loop nest structure, types of each loop (<code class="docutils literal notranslate"><span class="pre">Parallel</span></code>, <code class="docutils literal notranslate"><span class="pre">Vectorized</span></code>, <code class="docutils literal notranslate"><span class="pre">Unrolled</span></code>), and where to execute its computation in the loop nest of the next <code class="docutils literal notranslate"><span class="pre">Stage</span></code>, if any.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Schedule</span></code> and <code class="docutils literal notranslate"><span class="pre">Stage</span></code> are defined in <code class="docutils literal notranslate"><span class="pre">tvm/python/te/schedule.py</span></code>, <code class="docutils literal notranslate"><span class="pre">include/tvm/te/schedule.h</span></code>, and <code class="docutils literal notranslate"><span class="pre">src/te/schedule/schedule_ops.cc</span></code>.</p>
+<p>To keep it simple, we call <code class="docutils literal notranslate"><span class="pre">tvm.build(...)</span></code> on the default schedule created by <code class="docutils literal notranslate"><span class="pre">create_schedule()</span></code> function above.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>
+<span class="n">fadd</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">target</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tvm.build()</span></code>, defined in <code class="docutils literal notranslate"><span class="pre">python/tvm/driver/build_module.py</span></code>, takes a schedule, input and output <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>, and a target, and returns a <a class="reference internal" href="../api/python/runtime.html#tvm.runtime.Module" title="tvm.runtime.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">tvm.runtime.Module</span></code></a> object. A <a class="reference internal" href="../api/python/runtime.html#tvm.runtime.Module" title="tvm.runtime.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">tvm.runtime.Module</span></code></a> object contains a compiled function which can be invoked with function call syntax.</p>
+<p>The process of <code class="docutils literal notranslate"><span class="pre">tvm.build()</span></code> can be divided into two steps:</p>
+<ul class="simple">
+<li><p>Lowering, where a high level, initial loop nest structures are transformed into a final, low level IR</p></li>
+<li><p>Code generation, where target machine code is generated from the low level IR</p></li>
+</ul>
+<p>Lowering is done by <code class="docutils literal notranslate"><span class="pre">tvm.lower()</span></code> function, defined in <code class="docutils literal notranslate"><span class="pre">python/tvm/build_module.py</span></code>. First, bound inference is performed, and an initial loop nest structure is created.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lower</span><span class="p">(</span><span class="n">sch</span><span class="p">,</span>
+          <span class="n">args</span><span class="p">,</span>
+          <span class="n">name</span><span class="o">=</span><span class="s2">&quot;default_function&quot;</span><span class="p">,</span>
+          <span class="n">binds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">simple_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+   <span class="o">...</span>
+   <span class="n">bounds</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">InferBound</span><span class="p">(</span><span class="n">sch</span><span class="p">)</span>
+   <span class="n">stmt</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">ScheduleOps</span><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">bounds</span><span class="p">)</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+<p>Bound inference is the process where all loop bounds and sizes of intermediate buffers are inferred. If you target the CUDA backend and you use shared memory, its required minimum size is automatically determined here. Bound inference is implemented in <code class="docutils literal notranslate"><span class="pre">src/te/schedule/bound.cc</span></code>, <code class="docutils literal notranslate"><span class="pre">src/te/schedule/graph.cc</span></code> and <code class="docutils literal notranslate"><span class="pre">src/te/schedule/message_passing.cc</span></code>. For more information on how bound inference works, see <a class="reference internal" href="inferbound.html#dev-inferbound-pass"><span class="std std-ref">InferBound Pass</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stmt</span></code>, which is the output of <code class="docutils literal notranslate"><span class="pre">ScheduleOps()</span></code>, represents an initial loop nest structure. If you have applied <code class="docutils literal notranslate"><span class="pre">reorder</span></code> or <code class="docutils literal notranslate"><span class="pre">split</span></code> primitives to your schedule, then the initial loop nest already reflects those changes. <code class="docutils literal notranslate"><span class="pre">ScheduleOps()</span></code> is defined in <code class="docutils literal notranslate"><span class="pre">src/te/schedule/schedule_ops.cc</span></code>.</p>
+<p>Next, we apply a number of lowering passes to <code class="docutils literal notranslate"><span class="pre">stmt</span></code>. These passes are implemented in <code class="docutils literal notranslate"><span class="pre">src/tir/pass</span></code> subdirectory. For example, if you have applied <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> or <code class="docutils literal notranslate"><span class="pre">unroll</span></code> primitives to your schedule, they are applied in loop vectorization and unrolling passes below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">ir_pass</span><span class="o">.</span><span class="n">VectorizeLoop</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">ir_pass</span><span class="o">.</span><span class="n">UnrollLoop</span><span class="p">(</span>
+    <span class="n">stmt</span><span class="p">,</span>
+    <span class="n">cfg</span><span class="o">.</span><span class="n">auto_unroll_max_step</span><span class="p">,</span>
+    <span class="n">cfg</span><span class="o">.</span><span class="n">auto_unroll_max_depth</span><span class="p">,</span>
+    <span class="n">cfg</span><span class="o">.</span><span class="n">auto_unroll_max_extent</span><span class="p">,</span>
+    <span class="n">cfg</span><span class="o">.</span><span class="n">unroll_explicit</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>After lowering is done, <code class="docutils literal notranslate"><span class="pre">build()</span></code> function generates target machine code from the lowered function. This code can contain SSE or AVX instructions if you target x86, or PTX instructions for CUDA target. In addition to target specific machine code, TVM also generates host side code that is responsible for memory management, kernel launch etc.</p>
+<p>Code generation is done by <code class="docutils literal notranslate"><span class="pre">build_module()</span></code> function, defined in <code class="docutils literal notranslate"><span class="pre">python/tvm/target/codegen.py</span></code>. On the C++ side, code generation is implemented in <code class="docutils literal notranslate"><span class="pre">src/target/codegen</span></code> subdirectory. <code class="docutils literal notranslate"><span class="pre">build_module()</span></code> Python function will reach <code class="docutils literal notranslate"><span class="pre">Build()</span></code> function below in <code class="docutils literal notranslate"><span class="pre">src/target/codegen/codegen.cc</span></code>:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Build()</span></code> function looks up the code generator for the given target in the <code class="docutils literal notranslate"><span class="pre">PackedFunc</span></code> registry, and invokes the function found. For example, <code class="docutils literal notranslate"><span class="pre">codegen.build_cuda</span></code> function is registered in <code class="docutils literal notranslate"><span class="pre">src/codegen/build_cuda_on.cc</span></code>, like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TVM_REGISTER_GLOBAL</span><span class="p">(</span><span class="s2">&quot;codegen.build_cuda&quot;</span><span class="p">)</span>
+<span class="o">.</span><span class="n">set_body</span><span class="p">([](</span><span class="n">TVMArgs</span> <span class="n">args</span><span class="p">,</span> <span class="n">TVMRetValue</span><span class="o">*</span> <span class="n">rv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">rv</span> <span class="o">=</span> <span class="n">BuildCUDA</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="p">});</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">BuildCUDA()</span></code> above generates CUDA kernel source from the lowered IR using <code class="docutils literal notranslate"><span class="pre">CodeGenCUDA</span></code> class defined in <code class="docutils literal notranslate"><span class="pre">src/codegen/codegen_cuda.cc</span></code>, and compile the kernel using NVRTC. If you target a backend that uses LLVM, which includes x86, ARM, NVPTX and AMDGPU, code generation is done primarily by <code class="docutils literal notranslate"><span class="pre">CodeGenLLVM</span></code> class defined in <code class="docutils literal notranslate"><span class="pre">src/codegen/llvm/codegen_llvm.cc</span></code>. <code class="docutils literal notranslate"><span class="pre">CodeGenLLVM</span></code> translates TVM IR into LLVM IR, runs a number of LLVM optimization passes, and generates target machine code.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Build()</span></code> function in <code class="docutils literal notranslate"><span class="pre">src/codegen/codegen.cc</span></code> returns a <code class="docutils literal notranslate"><span class="pre">runtime::Module</span></code> object, defined in <code class="docutils literal notranslate"><span class="pre">include/tvm/runtime/module.h</span></code> and <code class="docutils literal notranslate"><span class="pre">src/runtime/module.cc</span></code>. A <code class="docutils literal notranslate"><span class="pre">Module</span></code> object is a container for the underlying target specific <code class="docutils literal notranslate"><span class="pre">ModuleNode</span></code> object. Each backend implements a subclass of <code class="docutils literal notranslate"><span class="pre">ModuleNode</span></code> to add target specific runtime API calls. For example, the CUDA backend implements <code class="docutils literal notranslate"><span class="pre">CUDAModuleNode</span></code> class in <code class="docutils literal notranslate"><span class="pre">src/runtime/cuda/cuda_module.cc</span></code>, which manages the CUDA driver API. The <code class="docutils literal notranslate"><span class="pre">BuildCUDA()</span></code> function above wraps <code class="docutils literal notranslate"><span class="pre">CUDAModuleNode</span></code> with <code class="docutils literal notranslate"><span class="pre">runtime::Module</span></code> and return it to the Python side. The LLVM backend implements <code class="docutils literal notranslate"><span class="pre">LLVMModuleNode</span></code> in <code class="docutils literal notranslate"><span class="pre">src/codegen/llvm/llvm_module.cc</span></code>, which handles JIT execution of compiled code. Other subclasses of <code class="docutils literal notranslate"><span class="pre">ModuleNode</span></code> can be found under subdirectories of <code class="docutils literal notranslate"><span class="pre">src/runtime</span></code> corresponding to each backend.</p>
+<p>The returned module, which can be thought of as a combination of a compiled function and a device API, can be invoked on TVM's NDArray objects.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ctx</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">C</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">fadd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Under the hood, TVM allocates device memory and manages memory transfers automatically. To do that, each backend needs to subclass <code class="docutils literal notranslate"><span class="pre">DeviceAPI</span></code> class, defined in <code class="docutils literal notranslate"><span class="pre">include/tvm/runtime/device_api.h</span></code>, and override memory management methods to use device specific API. For example, the CUDA backend implements <code class="docutils literal notranslate"><span class="pre">CUDADeviceAPI</span></code> in <code class="docutils literal notranslate"><span class="pre">src/runtime/cuda/cuda_device_api.cc</span></code> to use <code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code>, <code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code> etc.</p>
+<p>The first time you invoke the compiled module with <code class="docutils literal notranslate"><span class="pre">fadd(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code>, <code class="docutils literal notranslate"><span class="pre">GetFunction()</span></code> method of <code class="docutils literal notranslate"><span class="pre">ModuleNode</span></code> is called to get a <code class="docutils literal notranslate"><span class="pre">PackedFunc</span></code> that can be used for a kernel call. For example, in <code class="docutils literal notranslate"><span class="pre">src/runtime/cuda/cuda_module.cc</span></code> the CUDA backend implements <code class="docutils literal notranslate"><span class="pre">CUDAModuleNode::GetFunction()</span></code> like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PackedFunc</span> <span class="n">CUDAModuleNode</span><span class="p">::</span><span class="n">GetFunction</span><span class="p">(</span>
+      <span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span>
+      <span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">ModuleNode</span><span class="o">&gt;&amp;</span> <span class="n">sptr_to_self</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">fmap_</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+  <span class="n">const</span> <span class="n">FunctionInfo</span><span class="o">&amp;</span> <span class="n">info</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+  <span class="n">CUDAWrappedFunc</span> <span class="n">f</span><span class="p">;</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">Init</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">sptr_to_self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">arg_types</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">info</span><span class="o">.</span><span class="n">thread_axis_tags</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">PackFuncVoidAddr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">arg_types</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">PackedFunc</span></code>'s overloaded <code class="docutils literal notranslate"><span class="pre">operator()</span></code> will be called, which in turn calls <code class="docutils literal notranslate"><span class="pre">operator()</span></code> of <code class="docutils literal notranslate"><span class="pre">CUDAWrappedFunc</span></code> in <code class="docutils literal notranslate"><span class="pre">src/runtime/cuda/cuda_module.cc</span></code>, where finally we see the <code class="docutils literal notranslate"><span class="pre">cuLaunchKernel</span></code> driver call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CUDAWrappedFunc</span> <span class="p">{</span>
+ <span class="n">public</span><span class="p">:</span>
+  <span class="n">void</span> <span class="n">Init</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+  <span class="o">...</span>
+  <span class="n">void</span> <span class="n">operator</span><span class="p">()(</span><span class="n">TVMArgs</span> <span class="n">args</span><span class="p">,</span>
+                  <span class="n">TVMRetValue</span><span class="o">*</span> <span class="n">rv</span><span class="p">,</span>
+                  <span class="n">void</span><span class="o">**</span> <span class="n">void_args</span><span class="p">)</span> <span class="n">const</span> <span class="p">{</span>
+    <span class="nb">int</span> <span class="n">device_id</span><span class="p">;</span>
+    <span class="n">CUDA_CALL</span><span class="p">(</span><span class="n">cudaGetDevice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device_id</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fcache_</span><span class="p">[</span><span class="n">device_id</span><span class="p">]</span> <span class="o">==</span> <span class="n">nullptr</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">fcache_</span><span class="p">[</span><span class="n">device_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">m_</span><span class="o">-&gt;</span><span class="n">GetFunc</span><span class="p">(</span><span class="n">device_id</span><span class="p">,</span> <span class="n">func_name_</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">CUstream</span> <span class="n">strm</span> <span class="o">=</span> <span class="n">static_cast</span><span class="o">&lt;</span><span class="n">CUstream</span><span class="o">&gt;</span><span class="p">(</span><span class="n">CUDAThreadEntry</span><span class="p">::</span><span class="n">ThreadLocal</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">stream</span><span class="p">);</span>
+    <span class="n">ThreadWorkLoad</span> <span class="n">wl</span> <span class="o">=</span> <span class="n">thread_axis_cfg_</span><span class="o">.</span><span class="n">Extract</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+    <span class="n">CUresult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">cuLaunchKernel</span><span class="p">(</span>
+        <span class="n">fcache_</span><span class="p">[</span><span class="n">device_id</span><span class="p">],</span>
+        <span class="n">wl</span><span class="o">.</span><span class="n">grid_dim</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">wl</span><span class="o">.</span><span class="n">grid_dim</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">wl</span><span class="o">.</span><span class="n">grid_dim</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">wl</span><span class="o">.</span><span class="n">block_dim</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">wl</span><span class="o">.</span><span class="n">block_dim</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">wl</span><span class="o">.</span><span class="n">block_dim</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="n">strm</span><span class="p">,</span> <span class="n">void_args</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>This concludes an overview of how TVM compiles and executes a function. Although we did not detail TOPI or Relay, in the end, all neural network operators go through the same compilation process as above. You are encouraged to dive into the details of the rest of the codebase.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          
+
+<footer>
+
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tutorials/index.html" class="btn btn-neutral float-right" title="Get Started Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="relay_bring_your_own_codegen.html" class="btn btn-neutral float-left" title="당신의 codegen을 TVM에 도입하기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+
+<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<section class="footerSec">
+    <div class="footerHeader">
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
+
+    </div>
+
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
+
+</section>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </body>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-75982049-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

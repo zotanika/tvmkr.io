@@ -1,0 +1,471 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="kr" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>구현과 탑재 &mdash; tvm 0.8.dev0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/tvm-logo-square.png"/>
+  
+
+  
+  
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <script type="text/javascript" src="../_static/js/tlcpack_theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deploy TVM Module using C++ API" href="cpp_deploy.html" />
+    <link rel="prev" title="Apache TVM Release Process" href="../contribute/release_process.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    
+<header class="header">
+    <div class="innercontainer">
+      <div class="headerInner d-flex justify-content-between align-items-center">
+          <div class="headerLogo">
+               <a href="https://tvm.apache.org/"><img src=https://tvm.apache.org/assets/images/logo.svg alt="logo"></a>
+          </div>
+
+          <div id="headMenu" class="headerNav">
+            <button type="button" id="closeHeadMenu" class="navCloseBtn"><img src="../_static/img/close-icon.svg" alt="Close"></button>
+             <ul class="nav">
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/community>Community</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/download>Download</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/vta>VTA</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/blog>Blog</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvm.apache.org/docs>Docs</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://tvmconf.org>Conference</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" href=https://github.com/apache/tvm/>Github</a>
+                </li>
+             </ul>
+               <div class="responsivetlcdropdown">
+                 <button type="button" class="btn-link">
+                   ASF
+                 </button>
+                 <ul>
+                     <li>
+                       <a href=https://apache.org/>Apache Homepage</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/licenses/>License</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/security/>Security</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/thanks.html>Thanks</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/events/current-event>Events</a>
+                     </li>
+                 </ul>
+               </div>
+          </div>
+            <div class="responsiveMenuIcon">
+              <button type="button" id="menuBtn" class="btn-menu"><img src="../_static/img/menu-icon.svg" alt="Menu Icon"></button>
+            </div>
+
+            <div class="tlcDropdown">
+              <div class="dropdown">
+                <button type="button" class="btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ASF
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <ul>
+                     <li>
+                       <a href=https://apache.org/>Apache Homepage</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/licenses/>License</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/security/>Security</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/foundation/thanks.html>Thanks</a>
+                     </li>
+                     <li>
+                       <a href=https://www.apache.org/events/current-event>Events</a>
+                     </li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+       </div>
+    </div>
+ </header>
+ 
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side fixed">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/tvm-logo-small.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.8.dev0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">입문</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install/index.html">설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">TVM에 기여하기</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">구현과 탑재</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cpp_deploy.html">Deploy TVM Module using C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android.html">안드로이드에 탑재하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate.html">프로젝트에 TVM 탑재하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hls.html">HLS 백엔드 예제</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_compute_lib.html">Relay ARM <sup>®</sup> 컴퓨트 라이브러리 적용</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html">Relay TensorRT Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vitis_ai.html">Vitis-AI Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/how_to.html">Developer How-To Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">튜토리얼</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Get Started Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#compile-deep-learning-models">Compile Deep Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#tensor-expression-and-schedules">Tensor Expression and Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#optimize-tensor-operators">Optimize Tensor Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#autotvm-template-based-auto-tuning">AutoTVM : Template-based Auto Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#autoscheduler-template-free-auto-scheduling">AutoScheduler : Template-free Auto Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#developer-tutorials">Developer Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#topi-tvm-operator-inventory">TOPI: TVM Operator Inventory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html#micro-tvm">Micro TVM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">참고 자료</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../langref/index.html">언어 레퍼런스</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/python/index.html">파이썬 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/links.html">다른 API 참조를 위한 링크</a></li>
+</ul>
+<p class="caption"><span class="caption-text">심층 해설</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">디자인과 아키텍쳐</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../vta/index.html">VTA: 딥러닝 가속기 스택</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">자주 묻는 질문(FAQ)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">인덱스</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      
+      <nav class="wy-nav-top" aria-label="top navigation" data-toggle="wy-nav-top">
+        
+            <div class="togglemenu">
+
+            </div>
+            <div class="nav-content">
+              <!-- tvm -->
+              Table of content
+            </div>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> <span class="br-arrow">></span></li>
+        
+      <li>구현과 탑재</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/deploy/index.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deploy-and-integration">
+<span id="id1"></span><h1>구현과 탑재<a class="headerlink" href="#deploy-and-integration" title="Permalink to this headline">¶</a></h1>
+<p>이 페이지는 TVM을 다양한 플랫폼에 탑재하고 당신의 프로젝트에 적용하는 방법에 대한 가이드라인을 담고 있습니다.</p>
+<img alt="https://tvm.apache.org/images/release/tvm_flexible.png" src="https://tvm.apache.org/images/release/tvm_flexible.png" />
+<p>전통적인 딥러닝 프레임워크와는 달리, TVM 스택은 두가지의 주요 컴포넌트로 나눌 수 있습니다:</p>
+<ul class="simple">
+<li><p>TVM 컴파일러, 컴파일레이션과 최적화 전체를 담당합니다.</p></li>
+<li><p>TVM 런타임, 타겟 장치에서 구동됩니다.</p></li>
+</ul>
+<p>컴파일된 모듈을 적용하기 위해서 타겟 장치에서 TVM 전체 스택을 빌드할 필요는 <strong>없습니다</strong>. TVM 컴파일러 스택은 데스크탑에서만 빌드하면 됩니다. 그것을 활용해 타겟 장치에 적재될 모듈을 크로스컴파일하세요. 우리는 다양한 플랫폼에 적용될 수 있는 가벼운 런타임 API를 사용하기만 하면 됩니다.</p>
+<p>예컨대, 라즈베리 파이와 같은 리눅스 기반의 임베디드 시스템에서의 런타임 API를 빌드하기 위해 다음과 같은 명령들을 실행할 수 있습니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone --recursive https://github.com/apache/tvm tvm
+<span class="nb">cd</span> tvm
+mkdir build
+cp cmake/config.cmake build
+<span class="nb">cd</span> build
+cmake ..
+make runtime
+</pre></div>
+</div>
+<p><cite>make runtime</cite> 명령은 런타임 라이브러리만 빌드한다는 것에 유념하세요. 만일 OpenCL과 같은 추가적인 런타임을 포함해야 한다면, <cite>config.cmake</cite> 을 수정함으로써 그러한 옵션들을 활성화할 수 있습니다. TVM 런타임 라이브러리를 만들고 나면, 컴파일된 라이브러리를 링크할 수 있습니다.</p>
+<p>임베디드 장치에서 TVM 커널들을 시험, 튜닝, 벤치마크 하기에 가장 쉬우면서도 추천할 수 있는 방법은 TVM의 RPC API를 활용하는 것입니다. 관련 튜토리얼들로 이동하기 위한 링크들은 여기 있습니다.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../tutorials/get_started/cross_compilation_and_rpc.html#tutorial-cross-compilation-and-rpc"><span class="std std-ref">Cross Compilation and RPC</span></a></p></li>
+<li><p><a class="reference internal" href="../tutorials/frontend/deploy_model_on_rasp.html#tutorial-deploy-model-on-rasp"><span class="std std-ref">Deploy the Pretrained Model on Raspberry Pi</span></a></p></li>
+</ul>
+<p>튜닝과 벤치마크가 끝났다면, 이제 RPC의 도움 없이 타겟 장치에 모델을 탑재해야 할 것입니다. 어떻게 하면 되는지 다음 자료들을 확인해 보세요.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_deploy.html">Deploy TVM Module using C++ API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cpp_deploy.html#get-tvm-runtime-library">Get TVM Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_deploy.html#dynamic-library-vs-system-module">Dynamic Library vs. System Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="android.html">안드로이드에 탑재하기</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="android.html#build-model-for-android-target">안드로이드 타겟을 위한 모델 빌드</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android.html#tvm-runtime-for-android-target">안드로이드 타겟을 위한 TVM 런타임</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integrate.html">프로젝트에 TVM 탑재하기</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integrate.html#dlpack-support">DLPack Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate.html#integrate-user-defined-c-array">Integrate User Defined C++ Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate.html#integrate-user-defined-python-array">Integrate User Defined Python Array</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hls.html">HLS 백엔드 예제</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hls.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hls.html#emulation">Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hls.html#synthesis">Synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hls.html#run">Run</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arm_compute_lib.html">Relay ARM <sup>®</sup> 컴퓨트 라이브러리 적용</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arm_compute_lib.html#introduction">소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_compute_lib.html#installing-arm-compute-library">ARM 컴퓨트 라이브러리 설치</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_compute_lib.html#building-with-acl-support">Building with ACL support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_compute_lib.html#usage">사용법</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_compute_lib.html#more-examples">더 많은 예제</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_compute_lib.html#operator-support">Operator support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_compute_lib.html#adding-a-new-operator">Adding a new operator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tensorrt.html">Relay TensorRT Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html#installing-tensorrt">Installing TensorRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html#building-tvm-with-tensorrt-support">Building TVM with TensorRT support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html#build-and-deploy-resnet-18-with-tensorrt">Build and Deploy ResNet-18 with TensorRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html#partitioning-and-compilation-settings">Partitioning and Compilation Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html#runtime-settings">Runtime Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html#operator-support">Operator support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorrt.html#adding-a-new-operator">Adding a new operator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vitis_ai.html">Vitis-AI Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vitis_ai.html#dpu-naming-information">DPU naming information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vitis_ai.html#build-instructions">Build instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vitis_ai.html#getting-started">Getting started</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          
+
+<footer>
+
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cpp_deploy.html" class="btn btn-neutral float-right" title="Deploy TVM Module using C++ API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../contribute/release_process.html" class="btn btn-neutral float-left" title="Apache TVM Release Process" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+
+<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<section class="footerSec">
+    <div class="footerHeader">
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
+
+    </div>
+
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
+
+</section>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </body>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-75982049-2', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

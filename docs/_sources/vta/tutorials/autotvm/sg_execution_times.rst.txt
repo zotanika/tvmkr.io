@@ -1,0 +1,12 @@
+
+:orphan:
+
+.. _sphx_glr_vta_tutorials_autotvm_sg_execution_times:
+
+Computation times
+=================
+**00:00.001** total execution time for **vta_tutorials_autotvm** files:
+
++---------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_vta_tutorials_autotvm_tune_relay_vta.py` (``tune_relay_vta.py``) | 00:00.001 | 0.0 MB |
++---------------------------------------------------------------------------------+-----------+--------+
